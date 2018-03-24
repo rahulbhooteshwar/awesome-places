@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar text-uppercase color="secondary">
+    <ion-title>{{place.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3 ion-text text-center>
+    {{place.title}}
+  </h3>
+  <p ion-text text-center color="muted"> {{place.description}}</p>
+  <ion-card padding>
+    <img [src]="place.imageSrc" />
+  </ion-card>
+  <ion-card padding>
+    <agm-map [scaleControl]="false" [scrollwheel]="false" [draggableCursor]="false" [mapTypeControl]="false" [mapDraggable]="false"
+      [latitude]="place.location.lat" [longitude]="place.location.lng" [zoom]="15">
+      <agm-marker [latitude]="place.location.lat" [longitude]="place.location.lng">
+      </agm-marker>
+    </agm-map>
+  </ion-card>
+  <button color="danger" ion-button block outline icon-left (click)="onDelete()">
+    <ion-icon name="trash"></ion-icon>
+    Delete Place
+  </button>
+
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar text-uppercase color="secondary">
+    <ion-title>choose location</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h5>Choose a location on Map</h5>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <agm-map [latitude]="location.lat" [longitude]="location.lng" [zoom]="14" (mapClick)="onMapClick($event)">
+          <agm-marker *ngIf="marker" [latitude]="marker.lat" [longitude]="marker.lng">
+          </agm-marker>
+        </agm-map>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button color="danger" outline block ion-button (click)="onAbort()">Abort</button>
+      </ion-col>
+      <ion-col>
+        <button color="secondary" block ion-button (click)="onDone()" [disabled]="!marker">Done</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

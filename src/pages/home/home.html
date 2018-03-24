@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar text-uppercase color="secondary">
+    <ion-title>Awesome Places</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="loadPlaces($event)">
+    <ion-refresher-content refreshingText="Loading Places...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="placeService.getPlaces().length === 0 else placeContainer">
+    <h1 ion-text text-center padding color="muted">
+      <ion-icon ios="ios-car" md="md-car" style="zoom:2"></ion-icon>
+    </h1>
+    <ion-card-content>
+      <ion-card-title text-center>
+        No Places Added Yet!
+      </ion-card-title>
+      <p ion-text text-center>
+        Go explore the world and add some awesome places
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ng-template #placeContainer>
+    <div class="card-background-page">
+      <ion-card *ngFor="let place of placeService.getPlaces(); let i=index" [navPush]="placeDetailsPage" [navParams]="{place: place, index: i}">
+        <img [src]="place.imageSrc" />
+        <div class="card-title">{{place.title}}</div>
+        <div class="card-subtitle">{{place.date}}</div>
+      </ion-card>
+    </div>
+  </ng-template>
+  <ion-fab bottom right>
+    <button ion-fab color="secondary" [navPush]="addPlacePage">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

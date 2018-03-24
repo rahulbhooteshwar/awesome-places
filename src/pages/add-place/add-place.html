@@ -1,0 +1,78 @@
+<ion-header>
+
+  <ion-navbar text-uppercase color="secondary">
+    <ion-title>Add Place</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (submit)="onSubmit(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Title</ion-label>
+        <ion-input type="text" required name="title" ngModel placeholder="What's this place?"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea type="text" required name="description" ngModel></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <p ion-text color="muted" *ngIf="!location else map">Choose a location</p>
+          <ng-template #map>
+            <agm-map [scaleControl]="false" [scrollwheel]="false" [draggableCursor]="false" [mapTypeControl]="false" [mapDraggable]="false"
+              [latitude]="location.lat" [longitude]="location.lng" [zoom]="15">
+              <agm-marker [latitude]="location.lat" [longitude]="location.lng">
+              </agm-marker>
+            </agm-map>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button color="secondary" type="button" block ion-button (click)="onLocateMe()" icon-left outline>
+            <ion-icon name="locate"></ion-icon>
+            Locate Me
+          </button>
+        </ion-col>
+        <ion-col>
+          <button color="secondary" type="button" block ion-button (click)="onOpenMaps()" icon-left outline>
+            <ion-icon name="map"></ion-icon>
+            Maps
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <p ion-text color="muted" *ngIf="!imageSrc else image">Take a Photo</p>
+          <ng-template #image>
+            <ion-card>
+              <ion-card-content padding>
+                <img [src]="imageSrc" />
+              </ion-card-content>
+            </ion-card>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <button color="secondary" type="button" ion-button block outline icon-left (click)="onOpenCamera()">
+            <ion-icon name="camera"></ion-icon>
+            Open Camera
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <button color="secondary" type="submit" ion-button block [disabled]="f.invalid || !location || !imageSrc">
+            Add Place
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
