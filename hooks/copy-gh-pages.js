@@ -3,7 +3,7 @@ var ncp = require('ncp').ncp;
 var rimraf = require('rimraf');
 ncp.limit = 16;
 
-var srcPath = "platforms/browser/www";
+var srcPath = "www";
 var destPath = 'docs';
 
 console.log('Removing old build...');
